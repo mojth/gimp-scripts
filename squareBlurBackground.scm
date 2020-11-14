@@ -15,7 +15,7 @@
    (scaleHeight (* size (/ size width)))
   )
   (gimp-image-add-layer image background 0)
-  (gimp-image-lower-layer-to-bottom image background)
+  (gimp-image-lower-item-to-bottom image background)
   (gimp-image-resize image size size offx offy)
   (gimp-layer-scale background scaleWidth scaleHeight TRUE)
   (plug-in-gauss RUN-NONINTERACTIVE image background blur blur 0)
