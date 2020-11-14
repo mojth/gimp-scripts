@@ -1,6 +1,6 @@
 ;https://github.com/mojth/gimp-scripts.git
 (define 
- (script-fu-square-blur-background image blur)
+ (script-fu-square-blur-background image blur grayscale?)
  (gimp-image-undo-group-start image)
  (gimp-context-push)
  (let*
@@ -19,6 +19,7 @@
   (gimp-image-resize image size size offx offy)
   (gimp-layer-scale background scaleWidth scaleHeight TRUE)
   (plug-in-gauss RUN-NONINTERACTIVE image background blur blur 0)
+  (if (= grayscale? TRUE) (gimp-drawable-hue-saturation background HUE-RANGE-ALL 0 0 -100 0))
  )
  (gimp-context-pop)
  (gimp-image-undo-group-end image)
@@ -33,8 +34,9 @@
  "Create a blur background with equal width and height. The background is created by bluring all visible layers."
  "Thomas Moj"
  ""
- "2020-11-01"
+ "2020-11-14"
  "RGB*"
  SF-IMAGE "Image" 0
  SF-ADJUSTMENT "Blur" '(100 0 500 1 10 0 0)
+ SF-TOGGLE "Grayscale background" TRUE
 )
